@@ -5,10 +5,7 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile, status
 from database.schemas import (
     Resposta
 )
-
 import fitz
-
-
 from google import genai
 from google.genai import types
 import os
@@ -17,6 +14,7 @@ categorizar_router = APIRouter(
     tags=['Categorizar'],
 )
 
+# Lê o TOKEN do GEMINI no .env
 load_dotenv()
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
@@ -38,10 +36,12 @@ async def categorizar_email(
 
     Returns:
     -------
-        Resposta: Categoria e resposta
+        Resposta: Dicionário com campos categoria e resposta_ia
 
     """
 
+    #Caso o usuário não envie corpo email ou nenhum arquivo,
+    #o sistema vai impedir
     if not arquivo and not corpo_email:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -54,22 +54,25 @@ async def categorizar_email(
         conteudo = corpo_email
 
     else:
-        
+
         if arquivo.content_type == "text/plain":
+
+            #Lê arquivo .txt e decodifica ele
             conteudo_arquivo = await arquivo.read()
             conteudo = conteudo_arquivo.decode("utf-8")
         
         if arquivo.content_type == 'application/pdf':
 
+            #Lê arquivo .pdf
             conteudo_arquivo = await arquivo.read()
 
+            #Abre o arquivo PDF com o MuPDF e lê página por página
             doc = fitz.open(stream=conteudo_arquivo, filetype='pdf')
             for page in doc:
                 text = page.get_text()
                 conteudo += text
 
-
-                  
+    # Resposta do MODELO IA do GEMINI
     response = client.models.generate_content(
                 model="gemini-2.5-flash",
                 config=types.GenerateContentConfig(
@@ -79,12 +82,14 @@ async def categorizar_email(
 
                 contents=[conteudo],
     )
+    
 
+    #O resultado da IA vem em dicionário contento 2 campos
     resultado_dict = json.loads(response.text)
-
+    
     categoria = resultado_dict['categoria']
-
     resposta_ia = resultado_dict['resposta']
+
 
     resposta = Resposta(
         categoria=categoria,

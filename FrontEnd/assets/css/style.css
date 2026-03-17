@@ -1,0 +1,119 @@
+:root {
+    --primary-orange: #f8991d; /* Cor baseada na logo AutoU */
+    --dark-gray: #333333;
+    --light-gray: #f4f4f9;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: var(--primary-orange);
+    margin: 0;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
+.header p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    border-radius: var(--border-radius);
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+textarea:focus, input[type="file"]:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+}
+
+.divider {
+    text-align: center;
+    margin: 15px 0;
+    color: #999;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-orange);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #e0891a;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#statusMessage {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.success { color: #28a745; }
+.error { color: #dc3545; }
+.loading { color: var(--primary-orange); }

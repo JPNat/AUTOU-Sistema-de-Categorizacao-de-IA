@@ -7,7 +7,7 @@ app = FastAPI()
 origins = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    "http://127.0.0.1:5500/FrontEnd/index.html",
+    "http://127.0.0.1:5500/FrontEnd/index.html", #Para testes
 ]
 
 app.add_middleware(
@@ -20,7 +20,7 @@ app.add_middleware(
 
 @app.get('/developers')
 def read_developers() -> dict[str, list[str]]:
-    return {'developers': ['João Pedro']}
+    return {'developers': ['João Pedro Natividade']}
 
 app.include_router(categorizar_router, prefix='/categorizar')
 
