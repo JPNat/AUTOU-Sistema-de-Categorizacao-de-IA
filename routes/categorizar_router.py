@@ -72,15 +72,29 @@ async def categorizar_email(
                 text = page.get_text()
                 conteudo += text
 
+
+    # Remoção de stop words -----------------------------------------
+
+    palavras_para_tirar = ['de', 'para', 'com', 'a', 'o', 'as', 'os', 'ao', 'aos', 'da', 'do', 'das', 'dos', 'de', 'do', 
+    'um', 'uma', 'uns', 'umas', 'em', 'no', 'na', 'nos', 'nas', 'pelo', 'pela']
+
+    lista_palavras = conteudo.split()
+
+    texto_filtrato = [palavra for palavra in lista_palavras if palavra.lower() not in palavras_para_tirar]
+ 
+    conteudo_filtrado = " ".join(texto_filtrato)
+
+    #--------------------------------------------------------------------------
+
     # Resposta do MODELO IA do GEMINI
     response = client.models.generate_content(
                 model="gemini-2.5-flash",
                 config=types.GenerateContentConfig(
-                    system_instruction = ("Responda estritamente em formato JSON. 1. 'categoria': 'Produtivo' ou 'Improdutivo'. 2. 'resposta': Sugerir respostas automáticas baseadas na classificação realizada. Produtivo: Emails que requerem uma ação ou resposta específica. Não precisa ser imediata para não ser produtiva. Se precisar de invetervenção humana e tirar dúvidas, é produtiva. ex.: solicitações de suporte técnico, atualização sobre casos em aberto, dúvidas sobre o sistema. Improdutivo: Emails a nível baixo de importância, ou seja, que não vai atrapalhar a empresa ex.: mensagens de felicitações, agradecimentos."),
+                    system_instruction = ("Responda estritamente em formato JSON. 1. 'categoria': 'Produtivo' ou 'Improdutivo'. 2. 'resposta': Sugerir respostas automáticas baseadas na classificação realizada e deixe de uma forma formatada a email. Produtivo: Emails que requerem uma ação ou resposta específica. Não precisa ser imediata para não ser produtiva. Se precisar de invetervenção humana e tirar dúvidas, é produtiva. ex.: solicitações de suporte técnico, atualização sobre casos em aberto, dúvidas sobre o sistema. Improdutivo: Emails a nível baixo de importância, ou seja, que não vai atrapalhar a empresa ex.: mensagens de felicitações, agradecimentos."),
                     response_mime_type="application/json",
                 ),
 
-                contents=[conteudo],
+                contents=[conteudo_filtrado],
     )
     
 
