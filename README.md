@@ -10,10 +10,12 @@ Para instalar o FastApi, digite no terminal:
 Será necessário modificar, no arquivo JavaScrip, a URL de execução do sistema, já que atualmente ele está configurado para funcionar no Vercel com Deploy de forma automatizada. Para isso, modifique a linha 35 de fetch para a URL de Teste, usando a variável URL_API_Teste = 'http://127.0.0.1:8000/categorizar'
 
 
-        De:
+- De:
+  
         const response = await fetch("/categorizar", {
 
-        Para:
+- Para:
+  
         const response = await fetch(URL_API_Teste, {
 
 
@@ -31,11 +33,11 @@ Será necessário modificar, no arquivo JavaScrip, a URL de execução do sistem
 
   Da mesma forma, na linha 48 do arquivo index.html, modifique:
 
--De:
-
+De:
+  
     <script src="/assets/js/script.js"> </script>
 
--Para:
+Para:
 
     <script src="assets/js/script.js"> </script>
 
