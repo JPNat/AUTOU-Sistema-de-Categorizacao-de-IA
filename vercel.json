@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/categorizar",
+      "destination": "main.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/FrontEnd/$1"
+    }
+  ]
+}
