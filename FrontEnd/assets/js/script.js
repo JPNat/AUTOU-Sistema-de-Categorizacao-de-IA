@@ -1,5 +1,5 @@
-URL_API = 'http://127.0.0.1:8000/categorizar'
-        
+URL_API_Teste = 'http://127.0.0.1:8000/categorizar'
+
 document.getElementById('aiForm').addEventListener('submit', async function(e) {
     
     e.preventDefault();
@@ -32,7 +32,7 @@ document.getElementById('aiForm').addEventListener('submit', async function(e) {
 
     try {
 
-        const response = await fetch(URL_API, {
+        const response = await fetch("/categorizar", {
             method: 'POST',
             body: formData
         });
