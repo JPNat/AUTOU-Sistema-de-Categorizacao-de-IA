@@ -6,6 +6,10 @@
       "destination": "main.py"
     },
     {
+      "source": "/",
+      "destination": "/FrontEnd/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/FrontEnd/$1"
     }
