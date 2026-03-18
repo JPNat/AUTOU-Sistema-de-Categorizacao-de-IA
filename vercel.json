@@ -1,17 +1,21 @@
 {
   "version": 2,
+  "builds": [
+    { "src": "main.py", "use": "@vercel/python" },
+    { "src": "FrontEnd/assets/**", "use": "@vercel/static" }
+  ],
   "rewrites": [
-    {
-      "source": "/categorizar",
-      "destination": "main.py"
+    { 
+      "source": "/assets/(.*)", 
+      "destination": "/FrontEnd/assets/$1" 
     },
-    {
-      "source": "/",
-      "destination": "/FrontEnd/index.html"
+    { 
+      "source": "/categorizar/(.*)", 
+      "destination": "main.py" 
     },
-    {
-      "source": "/(.*)",
-      "destination": "/FrontEnd/$1"
+    { 
+      "source": "/(.*)", 
+      "destination": "main.py" 
     }
   ]
 }
